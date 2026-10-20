@@ -8,15 +8,23 @@ const menus = [
   { name: 'Home', path: '/' },
   { name: 'About', path: '/about' },
   {
-    name: 'Browse', path: '/browse', children: [
-      { name: 'Event List', path: '/browse/events', children: [{ name: 'Event Detail (Sample)', path: '/browse/events/1' }] },
+    name: 'Browse',
+    path: '/browse',
+    children: [
+      {
+        name: 'Event List',
+        path: '/browse/events',
+        children: [{ name: 'Event Detail (Sample)', path: '/browse/events/1' }],
+      },
       { name: 'Category', path: '/browse/category' },
     ],
   },
   { name: 'Contact', path: '/contact' },
   { name: 'Organizer Dashboard', path: '/dashboard' },
 ]
-const handleScroll = () => { isScrolled.value = window.scrollY > 10 }
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 10
+}
 onMounted(() => window.addEventListener('scroll', handleScroll))
 onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 </script>
@@ -25,30 +33,236 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   <nav class="navbar" :class="{ scrolled: isScrolled }">
     <div class="navbar-container">
       <RouterLink to="/" class="logo">
-        <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 10 10-10 10L2 12 12 2Z" /><path d="m12 7 5 5-5 5-5-5 5-5Z" /></svg>
+        <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m12 2 10 10-10 10L2 12 12 2Z" />
+          <path d="m12 7 5 5-5 5-5-5 5-5Z" />
+        </svg>
         <span>Gatherly</span>
       </RouterLink>
       <ul class="nav-menu">
         <li v-for="menu in menus" :key="menu.name" class="nav-item">
-          <RouterLink :to="menu.path" class="nav-link" :class="{ active: route.path === menu.path || (menu.path !== '/' && route.path.startsWith(menu.path)) }">
+          <RouterLink
+            :to="menu.path"
+            class="nav-link"
+            :class="{
+              active:
+                route.path === menu.path || (menu.path !== '/' && route.path.startsWith(menu.path)),
+            }"
+          >
             {{ menu.name }}
-            <svg v-if="menu.children" class="dropdown-indicator" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
+            <svg
+              v-if="menu.children"
+              class="dropdown-indicator"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="m7 10 5 5 5-5" />
+            </svg>
           </RouterLink>
           <ul v-if="menu.children" class="dropdown-menu">
             <li v-for="child in menu.children" :key="child.name" class="dropdown-item">
-              <RouterLink :to="child.path" class="dropdown-link">{{ child.name }}<span v-if="child.children">›</span></RouterLink>
-              <ul v-if="child.children" class="submenu"><li v-for="subchild in child.children" :key="subchild.name"><RouterLink :to="subchild.path" class="dropdown-link">{{ subchild.name }}</RouterLink></li></ul>
+              <RouterLink :to="child.path" class="dropdown-link"
+                >{{ child.name }}<span v-if="child.children">›</span></RouterLink
+              >
+              <ul v-if="child.children" class="submenu">
+                <li v-for="subchild in child.children" :key="subchild.name">
+                  <RouterLink :to="subchild.path" class="dropdown-link">{{
+                    subchild.name
+                  }}</RouterLink>
+                </li>
+              </ul>
             </li>
           </ul>
         </li>
       </ul>
-      <div class="nav-right"><div class="lang-selector"><span class="language-icon">EN</span><span>EN</span></div><button class="hamburger-btn" aria-label="Menu"><span></span><span></span><span></span></button></div>
+      <div class="nav-right">
+        <div class="lang-selector"><span class="language-icon">EN</span><span>EN</span></div>
+        <button class="hamburger-btn" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 </template>
 
 <style scoped>
-.navbar{position:sticky;top:0;z-index:999;width:100%;background:#1d194d;box-shadow:0 5px 20px rgb(23 18 67 / 22%);transition:background .25s,box-shadow .25s}.navbar.scrolled{background:rgb(29 25 77 / 92%);backdrop-filter:blur(14px);box-shadow:0 8px 30px rgb(23 18 67 / 32%)}.navbar-container{display:flex;align-items:center;justify-content:space-between;max-width:1240px;min-height:76px;margin:auto;padding:.75rem 2rem}.logo,.nav-link{color:#fff;text-decoration:none}.logo{display:flex;gap:.65rem;align-items:center;font-weight:750;letter-spacing:-.025em}.logo-icon{width:29px;height:29px;fill:none;stroke:#fff;stroke-width:1.7}.logo-icon path:last-child{fill:#7b5cff;stroke:none}.nav-menu{display:flex;flex:1;justify-content:center;gap:.8rem;margin:0;padding:0;list-style:none}.nav-item{position:relative;padding:.65rem 0}.nav-link{display:flex;gap:.38rem;align-items:center;padding:.65rem 1rem;border-radius:10px;font-weight:550;transition:background .2s,transform .2s}.nav-link.active{background:#6845ff;box-shadow:0 8px 16px rgb(0 0 0 / 16%)}.nav-link:hover{background:rgb(255 255 255 / 11%);transform:translateY(-1px)}.dropdown-indicator{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.dropdown-menu,.submenu{display:none;position:absolute;z-index:2;min-width:210px;margin:0;padding:.45rem;list-style:none;background:#fff;border:1px solid #e6e3f4;border-radius:12px;box-shadow:0 16px 32px rgb(24 18 71 / 18%)}.dropdown-menu{top:100%;left:0}.submenu{top:0;left:calc(100% + .4rem);min-width:220px}.nav-item:hover .dropdown-menu,.dropdown-item:hover .submenu{display:block}.dropdown-link{display:flex;justify-content:space-between;gap:1rem;padding:.7rem .8rem;border-radius:8px;color:#3d385c;text-decoration:none;font-size:.92rem}.dropdown-link:hover{background:#f0edff;color:#5d3df5}.nav-right,.lang-selector{display:flex;align-items:center;gap:.8rem;color:#fff}.lang-selector{font-size:.9rem}.language-icon{display:grid;width:21px;height:21px;place-items:center;border:1px solid rgb(255 255 255 / 65%);border-radius:50%;font-size:.5rem}.hamburger-btn{display:grid;gap:4px;width:42px;height:42px;place-content:center;padding:0;background:rgb(255 255 255 / 7%);border:1px solid rgb(255 255 255 / 10%);border-radius:11px}.hamburger-btn span{display:block;width:18px;height:1.5px;background:#fff;border-radius:10px}@media (max-width:768px){.navbar-container{min-height:66px;padding:.65rem 1.25rem}.nav-menu,.lang-selector{display:none}}
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  background: #1d194d;
+  box-shadow: 0 5px 20px rgb(23 18 67 / 22%);
+  transition:
+    background 0.25s,
+    box-shadow 0.25s;
+}
+.navbar.scrolled {
+  background: rgb(29 25 77 / 92%);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 8px 30px rgb(23 18 67 / 32%);
+}
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1240px;
+  min-height: 76px;
+  margin: auto;
+  padding: 0.75rem 2rem;
+}
+.logo,
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+}
+.logo {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+.logo-icon {
+  width: 29px;
+  height: 29px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.7;
+}
+.logo-icon path:last-child {
+  fill: #7b5cff;
+  stroke: none;
+}
+.nav-menu {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nav-item {
+  position: relative;
+  padding: 0.65rem 0;
+}
+.nav-link {
+  display: flex;
+  gap: 0.38rem;
+  align-items: center;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  font-weight: 550;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.nav-link.active {
+  background: #6845ff;
+  box-shadow: 0 8px 16px rgb(0 0 0 / 16%);
+}
+.nav-link:hover {
+  background: rgb(255 255 255 / 11%);
+  transform: translateY(-1px);
+}
+.dropdown-indicator {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.dropdown-menu,
+.submenu {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  min-width: 210px;
+  margin: 0;
+  padding: 0.45rem;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #e6e3f4;
+  border-radius: 12px;
+  box-shadow: 0 16px 32px rgb(24 18 71 / 18%);
+}
+.dropdown-menu {
+  top: 100%;
+  left: 0;
+}
+.submenu {
+  top: 0;
+  left: calc(100% + 0.4rem);
+  min-width: 220px;
+}
+.nav-item:hover .dropdown-menu,
+.dropdown-item:hover .submenu {
+  display: block;
+}
+.dropdown-link {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 8px;
+  color: #3d385c;
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+.dropdown-link:hover {
+  background: #f0edff;
+  color: #5d3df5;
+}
+.nav-right,
+.lang-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #fff;
+}
+.lang-selector {
+  font-size: 0.9rem;
+}
+.language-icon {
+  display: grid;
+  width: 21px;
+  height: 21px;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 65%);
+  border-radius: 50%;
+  font-size: 0.5rem;
+}
+.hamburger-btn {
+  display: grid;
+  gap: 4px;
+  width: 42px;
+  height: 42px;
+  place-content: center;
+  padding: 0;
+  background: rgb(255 255 255 / 7%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 11px;
+}
+.hamburger-btn span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: #fff;
+  border-radius: 10px;
+}
+@media (max-width: 768px) {
+  .navbar-container {
+    min-height: 66px;
+    padding: 0.65rem 1.25rem;
+  }
+  .nav-menu,
+  .lang-selector {
+    display: none;
+  }
+}
 </style>
 
 <style scoped>
@@ -171,7 +385,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   top: 100%;
   left: 0;
 
-  background-color: #dBd8dB; /* warna abu seperti referensi */
+  background-color: #dbd8db; /* warna abu seperti referensi */
   min-width: 200px;
   list-style: none;
   padding: 0;
@@ -198,7 +412,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   text-decoration: none;
   color: #333; /* text gelap */
   font-size: 0.95rem;
-  transition: 
+  transition:
     background-color 0.2s,
     color 0.2s;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -220,7 +434,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   position: absolute;
   top: 0;
   left: 100%;
-  background-color: #dBd8dB;
+  background-color: #dbd8db;
   min-width: 220px;
   list-style: none;
   padding: 0;

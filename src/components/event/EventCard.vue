@@ -20,15 +20,15 @@
 </template>
 
 <script setup>
-import AppCard from '@/components/ui/AppCard.vue';
+import AppCard from '@/components/ui/AppCard.vue'
 
 defineProps({
   event: {
     type: Object,
-    required: true
-  }
-});
-defineEmits(['view-detail']);
+    required: true,
+  },
+})
+defineEmits(['view-detail'])
 </script>
 
 <style scoped>

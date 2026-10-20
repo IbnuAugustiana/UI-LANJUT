@@ -8,10 +8,10 @@
 defineProps({
   variant: {
     type: String,
-    default: 'primary'
-  }
-});
-defineEmits(['click']);
+    default: 'primary',
+  },
+})
+defineEmits(['click'])
 </script>
 
 <style scoped>
@@ -25,7 +25,9 @@ defineEmits(['click']);
   cursor: pointer;
   display: inline-block;
   text-align: center;
-  transition: transform 0.2s, background-color 0.2s;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
 }
 
 .app-button:hover {

@@ -14,10 +14,10 @@
 defineProps({
   modelValue: {
     type: String,
-    default: ''
-  }
-});
-defineEmits(['update:modelValue']);
+    default: '',
+  },
+})
+defineEmits(['update:modelValue'])
 </script>
 
 <style scoped>

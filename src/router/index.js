@@ -1,45 +1,81 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AppLayout from '../layouts/App.vue'
-import DashboardLayout from '../layouts/DashboardLayout.vue'
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
-import Contact from '../views/Contact.vue'
-import Browse from '../views/Browse.vue'
-import EventList from '../views/EventList.vue'
-import EventDetail from '../views/EventDetail.vue'
-import Category from '../views/Category.vue'
-import Dashboard from '../views/Dashboard.vue'
+import AppLayout from '@/layouts/App.vue'
+import DashboardLayout from '@/layouts/DashboardLayout.vue'
+
+const routes = [
+  {
+    path: '/',
+    component: AppLayout,
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: () => import('@/views/Home.vue'),
+        meta: { breadcrumb: 'Home' },
+      },
+      {
+        path: 'about',
+        name: 'about',
+        component: () => import('@/views/About.vue'),
+        meta: { breadcrumb: 'About' },
+      },
+      {
+        path: 'browse',
+        name: 'browse',
+        component: () => import('@/views/Browse.vue'),
+        meta: { breadcrumb: 'Browse' },
+        redirect: '/browse/events',
+        children: [
+          {
+            path: 'events',
+            name: 'events',
+            component: () => import('@/views/EventList.vue'),
+            meta: { breadcrumb: 'Event List' },
+          },
+          {
+            path: 'events/:id',
+            name: 'event-detail',
+            component: () => import('@/views/EventDetail.vue'),
+            meta: { breadcrumb: 'Event Detail' },
+          },
+          {
+            path: 'category',
+            name: 'category',
+            component: () => import('@/views/Category.vue'),
+            meta: { breadcrumb: 'Category' },
+          },
+        ],
+      },
+      {
+        path: 'contact',
+        name: 'contact',
+        component: () => import('@/views/Contact.vue'),
+        meta: { breadcrumb: 'Contact' },
+      },
+    ],
+  },
+  {
+    /* AREA PENYELENGGARA ACARA (DASHBOARD) */
+    path: '/dashboard',
+    component: DashboardLayout,
+    children: [
+      {
+        path: '',
+        name: 'dashboard-overview',
+        component: () => import('@/views/Dashboard.vue'),
+      },
+      {
+        path: 'events',
+        name: 'dashboard-events',
+        component: () => import('@/views/EventManagement.vue'),
+      },
+    ],
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      component: AppLayout,
-      children: [
-        { path: '', name: 'home', component: Home },
-        { path: 'about', name: 'about', component: About },
-        { path: 'contact', name: 'contact', component: Contact },
-        {
-          path: 'browse',
-          component: Browse,
-          children: [
-            { path: '', redirect: '/browse/events' },
-            { path: 'events', name: 'events', component: EventList },
-            { path: 'events/:id', name: 'event-detail', component: EventDetail },
-            { path: 'category', name: 'category', component: Category },
-          ],
-        },
-      ],
-    },
-    {
-      path: '/dashboard',
-      component: DashboardLayout,
-      children: [
-        { path: '', name: 'dashboard', component: Dashboard },
-      ],
-    },
-  ],
+  routes,
 })
 
 export default router

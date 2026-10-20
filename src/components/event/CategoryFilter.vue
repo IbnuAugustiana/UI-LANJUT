@@ -15,14 +15,14 @@
 defineProps({
   categories: {
     type: Array,
-    required: true
+    required: true,
   },
   modelValue: {
     type: String,
-    default: 'All'
-  }
-});
-defineEmits(['update:modelValue']);
+    default: 'All',
+  },
+})
+defineEmits(['update:modelValue'])
 </script>
 
 <style scoped>
