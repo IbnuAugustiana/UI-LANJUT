@@ -1,6 +1,6 @@
 <script setup>
-import AppButton from '@/components/ui/AppButton.vue';
-import AppCard from '@/components/ui/AppCard.vue';
+import AppButton from '@/components/ui/AppButton.vue'
+import AppCard from '@/components/ui/AppCard.vue'
 </script>
 
 <template>
@@ -9,7 +9,8 @@ import AppCard from '@/components/ui/AppCard.vue';
       <div class="hero-content">
         <h1 class="hero-title">Connect, Discover, and Experience</h1>
         <p class="hero-subtitle">
-          A community event platform designed to bring ideas together. Discover hundreds of events near you.
+          A community event platform designed to bring ideas together. Discover hundreds of events
+          near you.
         </p>
         <div class="hero-action">
           <AppButton variant="primary" @click="$router.push('/browse/events')">
@@ -29,7 +30,9 @@ import AppCard from '@/components/ui/AppCard.vue';
         <AppCard class="feature-card">
           <div class="feature-icon">🔍</div>
           <h3>Discover Easily</h3>
-          <p>Find events tailored to your interests using our smart category and location filters.</p>
+          <p>
+            Find events tailored to your interests using our smart category and location filters.
+          </p>
         </AppCard>
 
         <AppCard class="feature-card">
@@ -41,7 +44,9 @@ import AppCard from '@/components/ui/AppCard.vue';
         <AppCard class="feature-card">
           <div class="feature-icon">📊</div>
           <h3>Host Like a Pro</h3>
-          <p>Manage attendees, track revenue, and scan QR codes with our comprehensive dashboard.</p>
+          <p>
+            Manage attendees, track revenue, and scan QR codes with our comprehensive dashboard.
+          </p>
         </AppCard>
       </div>
     </section>

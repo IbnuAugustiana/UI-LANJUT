@@ -9,12 +9,39 @@ const crumbs = computed(() => route.path.split('/').filter(Boolean))
 <template>
   <div v-if="crumbs.length > 0" class="breadcrumb">
     <RouterLink to="/">Home</RouterLink>
-    <template v-for="crumb in crumbs" :key="crumb"><span class="separator">/</span><span class="current">{{ crumb }}</span></template>
+    <template v-for="crumb in crumbs" :key="crumb"
+      ><span class="separator">/</span><span class="current">{{ crumb }}</span></template
+    >
   </div>
 </template>
 
 <style scoped>
-.breadcrumb{display:flex;gap:.65rem;align-items:center;max-width:1120px;margin:0 auto;padding:1.25rem 2rem 0;color:#77738e;font-size:.88rem}.breadcrumb a{color:#6845ff;text-decoration:none;font-weight:600}.separator{color:#b1aec1}.current{text-transform:capitalize}@media(max-width:600px){.breadcrumb{padding:1rem 1.25rem 0}}
+.breadcrumb {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem 0;
+  color: #77738e;
+  font-size: 0.88rem;
+}
+.breadcrumb a {
+  color: #6845ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.separator {
+  color: #b1aec1;
+}
+.current {
+  text-transform: capitalize;
+}
+@media (max-width: 600px) {
+  .breadcrumb {
+    padding: 1rem 1.25rem 0;
+  }
+}
 </style>
 
 <style scoped>
