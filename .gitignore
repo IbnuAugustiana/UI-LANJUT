@@ -39,3 +39,8 @@ __screenshots__/
 *.timestamp-*-*.mjs
 
 *.pdf
+
+# Artefak bantuan saat membaca modul; bukan bagian dari aplikasi.
+/extracted_images/
+/modul5_text.txt
+/extracted_text.txt
